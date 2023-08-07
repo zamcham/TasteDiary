@@ -1,6 +1,7 @@
 <h1>Public Recipes</h1>
-<!-- TODO: show photos --> 
+<!-- TODO: show photos -->
 <% @public_recipes.each do |recipe| %>
+    <img src="<%= recipe.photo %>" />
     <h2><%= recipe.name %></h2>
     <p><%= recipe.description %></p>
 <% end %>

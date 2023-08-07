@@ -7,7 +7,7 @@ class CreateRecipes < ActiveRecord::Migration[7.0]
       t.integer :cooking_time, null: false
       t.boolean :public, null: false, default: false
       # TODO: Replace default image with a placeholder image
-      t.string :photo, null: false, default: 'https://i.imgur.com/2xW3Y2W.png'
+      t.string :photo, null: false, default: 'https://www.pexels.com/photo/vegetable-salad-served-on-table-with-beef-steak-in-restaurant-4551832/'
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
