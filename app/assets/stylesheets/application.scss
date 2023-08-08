@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+@import 'bootstrap';
+
+.recipeImg {
+  width: auto;
+  height: 200px;
+  object-fit: cover;
+}
