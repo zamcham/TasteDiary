@@ -7,10 +7,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 userOne = User.create(name: 'Naan', email: '123email@gmail.com', password_digest: '123456', photo: 'https://i.imgur.com/2xW3Y2W.png')
 ingredientOne = userOne.ingredients.create(name: 'pepper', measurement_unit: 'g', price: 1, quantity: 1)
-recipeOne = userOne.recipes.create(name: 'Stuffed Peppers', description: 'peppers are yummy!', preparation_time: 35, cooking_time: 15, public: true, photo: 'https://i.imgur.com/2xW3Y2W.png')
+recipeOne = userOne.recipes.create(name: 'Stuffed Peppers', description: 'peppers are yummy!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
 mealOne = recipeOne.meals.create(quantity: 1)
 
 userTwo = User.create(name: 'Cristian', email: '456email@gmail.com', password_digest: '123456', photo: 'https://i.imgur.com/2xW3Y2W.png')
 ingredientTwo = userOne.ingredients.create(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
-recipeTwo = userOne.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'https://i.imgur.com/2xW3Y2W.png')
+recipeTwo = userOne.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
 mealTwo = recipeOne.meals.create(quantity: 1)

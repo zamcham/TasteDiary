@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_182006) do
     t.integer "preparation_time", null: false
     t.integer "cooking_time", null: false
     t.boolean "public", default: false, null: false
-    t.string "photo", default: "https://i.imgur.com/2xW3Y2W.png", null: false
+    t.string "photo", default: "https://images.immediate.co.uk/production/volatile/sites/30/2013/05/Chicken-leek-and-broccoli-rice-stir-fry-ffe0df6.jpg", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_182006) do
     t.string "name", limit: 50, null: false
     t.string "email", limit: 50, null: false
     t.string "password_digest", null: false
-    t.string "photo", default: "https://i.imgur.com/2xW3Y2W.png", null: false
+    t.string "photo", default: "https://avatars.githubusercontent.com/u/115372699?v=4", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
