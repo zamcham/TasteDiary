@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="text-center">My Recipes</h1>
+  <div class="row justify-content-center">
+    <% @recipes.each do |recipe| %>
+
+      <div class="col-md-8">
+
+        <div class="card mb-3">
+
+          <div class="card-body d-flex align-items-center">
+
+            <div class="mr-5">
+              <h5 class="card-title">
+                <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id) %>
+              </h5>
+
+              <%= button_to "Delete", recipe_path(recipe), method: :delete, class: "btn btn-danger" %>
+            </div>
+            <div class="text-center w-100">
+                <p class="card-text"><%= recipe.description %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='text-center'>
+    <%= link_to "New Recipe", new_recipe_path, class: "btn btn-primary btn-sm text-center" %>
+  </div>
+</div>
