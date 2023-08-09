@@ -1,11 +1,20 @@
 <h1>Public Recipes</h1>
-<% @public_recipes.each do |recipe| %>
-    <div class="card" style="width: 18rem;">
-        <%= image_tag recipe.photo, class: 'card-img-top', alt: 'recipe cover image' %>
-        <div class="card-body">
+<div class="container">
+  <div class="row">
+    <% @public_recipes.each_with_index do |recipe, index| %>
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+          <%= image_tag recipe.photo, class: 'card-img-top', alt: 'recipe cover image' %>
+          <div class="card-body">
             <h5 class="card-title"><%= recipe.name %></h5>
-            <p class="card-text"><%= recipe.description %></p>
-            <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id) %>
+            <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id), class: "btn btn-primary" %>
+          </div>
         </div>
-    </div>
-<% end %>
+      </div>
+      <% if (index + 1) % 4 == 0 %>
+        </div>
+        <div class="row">
+      <% end %>
+    <% end %>
+  </div>
+</div>

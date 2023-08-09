@@ -15,6 +15,37 @@
  */
 @import 'bootstrap';
 
+$gray-color: #EEF0F2;
+$black-color: #1C1C1C;
+
+body {
+  background-color: $gray-color;
+
+  .card {
+    border-radius: 0;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .btn-primary {
+    background-color: $black-color;
+    border-color: $black-color;
+    border-radius: 0;
+    width: 50%;
+  }
+
+  .btn-primary:hover {
+    background-color: #DADDD8;
+    border-color: $black-color;
+    color: $black-color;
+  }
+}
+
 .recipeImg {
   width: auto;
   height: 200px;
