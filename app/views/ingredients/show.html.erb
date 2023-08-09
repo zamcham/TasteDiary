@@ -1,0 +1,10 @@
+<% if flash[:notice] == "Ingredient successfully created!" %>
+   <p>Ingredient successfully created!</p>
+
+<% elsif flash[:notice] == "Ingredient successfully deleted!" %>
+   <p>Ingredient successfully deleted.</p>
+
+<% else %>
+  <p>Error deleting ingredient</p>
+<% end %>
+<%= link_to "Back to Ingredients", ingredients_path %>
