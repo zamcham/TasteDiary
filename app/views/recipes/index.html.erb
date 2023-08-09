@@ -11,7 +11,7 @@
 
             <div class="mr-5">
               <h5 class="card-title">
-                <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id) %>
+                <%= link_to 'See Recipe' %>
               </h5>
 
               <%= button_to "Delete", recipe_path(recipe), method: :delete, class: "btn btn-danger" %>
