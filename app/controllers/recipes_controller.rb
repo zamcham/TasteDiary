@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.find(params[:id])
     @recipe.destroy
 
-    redirect_to recipes_path, notice: "Recipe deleted!"
+    redirect_to recipes_path, notice: 'Recipe deleted!'
   end
 
   def create
@@ -21,7 +21,7 @@ class RecipesController < ApplicationController
     @recipe.cooking_time = recipe_params[:cooking_time].to_i
 
     if @recipe.save
-      flash[:notice] = "Recipe was successfully created!"
+      flash[:notice] = 'Recipe was successfully created!'
       redirect_to @recipe
     else
       render :new
@@ -33,5 +33,4 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:name, :description) # add attributes
   end
-
 end
