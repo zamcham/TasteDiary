@@ -5,7 +5,7 @@
         <div class="card-body">
             <h5 class="card-title"><%= recipe.name %></h5>
             <p class="card-text"><%= recipe.description %></p>
-            <a href="#" class="btn btn-primary">See Recipe</a>
+            <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id) %>
         </div>
     </div>
 <% end %>
