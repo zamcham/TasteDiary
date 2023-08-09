@@ -16,7 +16,7 @@ class IngredientsController < ApplicationController
   def create
     @ingredient = current_user.ingredients.new(ingredient_params)
     if @ingredient.save
-      flash[:notice] = "Ingredient successfully created!"
+      flash[:notice] = 'Ingredient successfully created!'
     else
       render :new
     end
@@ -39,18 +39,16 @@ class IngredientsController < ApplicationController
   def destroy
     @ingredient = current_user.ingredients.find(params[:id])
     if @ingredient.destroy
-      flash[:notice] = "Ingredient successfully deleted!"
+      flash[:notice] = 'Ingredient successfully deleted!'
     else
-      flash[:error] = "Error deleting ingredient"
+      flash[:error] = 'Error deleting ingredient'
     end
     redirect_to ingredients_path
   end
-
 
   private
 
   def ingredient_params
     params.require(:ingredient).permit(:name, :measurement_unit, :price, :quantity, :user_id)
   end
-
 end
