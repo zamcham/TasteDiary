@@ -1,7 +1,7 @@
 <h1>Public Recipes</h1>
 <% @public_recipes.each do |recipe| %>
     <div class="card" style="width: 18rem;">
-    <%= image_tag recipe.photo, class: 'card-img-top', alt: 'recipe cover image' %>
+        <%= image_tag recipe.photo, class: 'card-img-top', alt: 'recipe cover image' %>
         <div class="card-body">
             <h5 class="card-title"><%= recipe.name %></h5>
             <p class="card-text"><%= recipe.description %></p>
