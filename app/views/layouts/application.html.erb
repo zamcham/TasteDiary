@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'recipes', 'data-turbolinks-track': 'reload' %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
   </head>
 
@@ -32,7 +33,7 @@
               </li>
             <% end %>
             <li class="nav-item">
-              <a class="nav-link" href="#">Meals</a>
+              <a class="nav-link" href="#">Shopping List</a>
             </li>
           </ul>
         </div>

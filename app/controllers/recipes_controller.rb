@@ -42,6 +42,12 @@ class RecipesController < ApplicationController
     end
   end
 
+  def toggle_visibility
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(public: !@recipe.public)
+    redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id)
+  end
+
   private
 
   def recipe_params
