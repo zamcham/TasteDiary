@@ -15,6 +15,59 @@
  */
 @import 'bootstrap';
 
+$gray-color: #eef0f2;
+$black-color: #1c1c1c;
+$blue-highlight: #2ec4b6;
+
+body {
+  background-color: $gray-color;
+
+  .card {
+    border-radius: 0;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cardSep {
+      color: $blue-highlight;
+    }
+  }
+
+  .btn-primary {
+    background-color: $black-color;
+    border-color: $black-color;
+    border-radius: 0;
+    width: 50%;
+  }
+
+  .btn-primary:hover {
+    background-color: #daddd8;
+    border-color: $black-color;
+    color: $black-color;
+  }
+
+  .createdBy {
+    display: flex;
+    align-items: center;
+    color: #888;
+    padding: 10px 0;
+
+    .createdByImg {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+
+    * {
+      margin: 0 2.5px;
+    }
+  }
+}
+
 .recipeImg {
   width: auto;
   height: 200px;

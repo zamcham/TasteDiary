@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <%= link_to 'Home', root_path, class: 'nav-link active' %>
             </li>
             <% if user_signed_in? %>
               <li class="nav-item">
@@ -37,7 +37,7 @@
           </ul>
         </div>
         <% if !user_signed_in? %>
-          <%= button_to "Sign Up", new_user_registration_path, method: :get, class: "btn btn-primary" %>
+          <%= button_to "Sign Up", new_user_registration_path, method: :get, class: "btn btn-secondary" %>
         <% end %>
 
         <% if user_signed_in? %>

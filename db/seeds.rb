@@ -11,6 +11,6 @@ recipeOne = userOne.recipes.create(name: 'Stuffed Peppers', description: 'pepper
 mealOne = recipeOne.meals.create(quantity: 1)
 
 userTwo = User.create(name: 'Cristian', email: '456email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
-ingredientTwo = userOne.ingredients.create(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
-recipeTwo = userOne.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
-mealTwo = recipeOne.meals.create(quantity: 1)
+ingredientTwo = userTwo.ingredients.create(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
+recipeTwo = userTwo.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
+mealTwo = recipeTwo.meals.create(quantity: 1)
