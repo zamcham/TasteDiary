@@ -17,6 +17,7 @@
 
 $gray-color: #EEF0F2;
 $black-color: #1C1C1C;
+$blue-highlight: #2ec4b6;
 
 body {
   background-color: $gray-color;
@@ -29,6 +30,10 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    .cardSep {
+      color: $blue-highlight;
     }
   }
 
@@ -43,6 +48,23 @@ body {
     background-color: #DADDD8;
     border-color: $black-color;
     color: $black-color;
+  }
+
+  .createdBy {
+    display: flex;
+    align-items: center;
+    color: #888888;
+    padding: 10px 0;
+
+    .createdByImg {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+
+    * {
+      margin: 0 2.5px;
+    }
   }
 }
 
