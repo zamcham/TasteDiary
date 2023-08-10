@@ -6,22 +6,47 @@ class IngredientsController < ApplicationController
   end
 
   def show
-    @ingredient = Ingredient.find(params[:id])
+    user_id = params[:user_id]
+    recipe_id = params[:id]
+
+    @recipe = Recipe.find_by(id: recipe_id, user_id: user_id)
+    @user = User.find_by(id: user_id)
+
+    if @recipe.nil?
+      render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+    end
   end
 
   def new
     @ingredient = Ingredient.new
+    @recipe = Recipe.find_by(id: params[:recipe_id])
   end
 
   def create
-    @ingredient = current_user.ingredients.new(ingredient_params)
+    @ingredient = Ingredient.new(ingredient_params)
+    @ingredient.user = current_user
+    @recipe = Recipe.find_by(id: params[:recipe_id])
+
     if @ingredient.save
-      flash[:notice] = 'Ingredient successfully created!'
+      if @recipe && !@recipe.ingredients.exists?(@ingredient)
+        @recipe.ingredients << @ingredient
+      end
+      flash[:notice] = "Ingredient added."
+      redirect_to @recipe || ingredients_path
     else
       render :new
     end
-    redirect_to @ingredient
   end
+
+  # def create
+  #   @ingredient = current_user.ingredients.new(ingredient_params)
+  #   if @ingredient.save
+  #     flash[:notice] = 'Ingredient successfully created!'
+  #   else
+  #     render :new
+  #   end
+  #   redirect_to @ingredient
+  # end
 
   def edit
     @ingredient = Ingredient.find(params[:id])

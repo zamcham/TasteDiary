@@ -8,9 +8,7 @@
 userOne = User.create(name: 'Naan', email: '123email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
 ingredientOne = userOne.ingredients.create(name: 'pepper', measurement_unit: 'g', price: 1, quantity: 1)
 recipeOne = userOne.recipes.create(name: 'Stuffed Peppers', description: 'peppers are yummy!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
-mealOne = recipeOne.meals.create(quantity: 1)
 
 userTwo = User.create(name: 'Cristian', email: '456email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
 ingredientTwo = userTwo.ingredients.create(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
 recipeTwo = userTwo.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
-mealTwo = recipeTwo.meals.create(quantity: 1)

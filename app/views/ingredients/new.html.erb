@@ -1,5 +1,4 @@
 <%= form_with model: @ingredient, class: "form-horizontal" do |form| %>
-
   <div class="form-group">
     <%= form.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -28,6 +27,9 @@
     </div>
   </div>
 
-  <%= form.submit "Create Ingredient", class: "btn btn-primary" %>
+  <% if @recipe.present? %>
+    <%= form.hidden_field :recipe_id, value: @recipe.id %>
+  <% end %>
 
+  <%= form.submit "Create Ingredient", class: "btn btn-primary" %>
 <% end %>

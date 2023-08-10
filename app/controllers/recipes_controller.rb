@@ -16,7 +16,6 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.new(recipe_params)
-
     @recipe.preparation_time = recipe_params[:preparation_time].to_i
     @recipe.cooking_time = recipe_params[:cooking_time].to_i
 
