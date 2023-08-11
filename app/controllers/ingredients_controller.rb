@@ -1,8 +1,13 @@
 class IngredientsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_recipe, only: [:new, :create]
 
   def index
-    @ingredients = current_user.ingredients
+    @ingredients = current_user.user_ingredients.map(&:ingredient)
+  end
+
+  def new
+    @ingredient = Ingredient.new
   end
 
   def show
@@ -17,26 +22,42 @@ class IngredientsController < ApplicationController
     end
   end
 
-  def new
-    @ingredient = Ingredient.new
-    @recipe = Recipe.find_by(id: params[:recipe_id])
-  end
-
   def create
-    @ingredient = Ingredient.new(ingredient_params)
-    @ingredient.user = current_user
-    @recipe = Recipe.find_by(id: params[:recipe_id])
-
-    if @ingredient.save
-      if @recipe && !@recipe.ingredients.exists?(@ingredient)
-        @recipe.ingredients << @ingredient
+    ingredient_name = params[:ingredient][:name]
+    ingredient = Ingredient.find_by(name: ingredient_name)
+  
+    if ingredient && current_user.user_ingredients.exists?(ingredient_id: ingredient.id)
+      if params[:ingredient][:recipe_id].present?
+        @recipe = Recipe.find(params[:ingredient][:recipe_id])
+        @recipe.ingredients << ingredient
+        flash[:success] = "#{ingredient_name} added to recipe!"
+        redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id)
+      else
+        flash[:error] = "Cannot add ingredient directly to user"
+        redirect_to ingredients_path
       end
-      flash[:notice] = "Ingredient added."
-      redirect_to @recipe || ingredients_path
     else
-      render :new
+      @ingredient = Ingredient.create(
+        name: ingredient_name,
+        measurement_unit: params[:ingredient][:measurement_unit],
+        price: params[:ingredient][:price],
+        quantity: params[:ingredient][:quantity],
+        user: current_user
+      )
+      if params[:ingredient][:recipe_id].present?
+        @recipe = Recipe.find(params[:ingredient][:recipe_id])
+        @recipe.ingredients << @ingredient
+        flash[:success] = "#{ingredient_name} added to recipe as a new ingredient!"
+        redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id)
+      else
+        UserIngredient.create(user: current_user, ingredient: @ingredient)
+        flash[:success] = "#{ingredient_name} added to your ingredients!"
+        redirect_to ingredients_path
+      end
     end
   end
+  
+  
 
   # def create
   #   @ingredient = current_user.ingredients.new(ingredient_params)
@@ -75,5 +96,9 @@ class IngredientsController < ApplicationController
 
   def ingredient_params
     params.require(:ingredient).permit(:name, :measurement_unit, :price, :quantity, :user_id)
+  end
+
+  def set_recipe
+    @recipe = Recipe.find_by(id: params[:recipe_id])
   end
 end

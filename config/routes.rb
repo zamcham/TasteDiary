@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   get '/users/:user_id/recipes/:id', to: 'recipes#show', as: 'user_recipe'
 
   resources :ingredients
-  resources :recipes, only: [:index, :show, :new, :create, :destroy]
-  resources :recipes do
+  resources :recipes, only: [:index, :show, :new, :create, :destroy] do
+    resources :ingredients, only: [:new, :create]
     member do
       post 'toggle_visibility'
     end
