@@ -19,7 +19,8 @@
         <td><%= ingredient.price %></td>
         <td><%= ingredient.quantity %></td>
         <td>
-          <%= button_to "Delete", ingredient, method: :delete %>
+          <!-- Delete Button -->
+          <%= button_to "Delete", delete_ingredient_path(ingredient.id), method: :delete, class: "btn btn-danger" %>
         </td>
       </tr>
     <% end %>
