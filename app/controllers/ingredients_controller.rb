@@ -34,12 +34,14 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
-    @ingredient = Ingredient.find(params[:id]) # Remove current_user here
-    if @ingredient.destroy
-      flash[:notice] = 'Ingredient successfully deleted!'
+    @ingredient = current_user.user_ingredients.find_by(id: params[:id])
+  
+    if @ingredient && @ingredient.destroy
+      flash[:notice] = 'Ingredient successfully deleted from your list!'
     else
       flash[:error] = 'Error deleting ingredient'
     end
+  
     redirect_to ingredients_path
   end
 
