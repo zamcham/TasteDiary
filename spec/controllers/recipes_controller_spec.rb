@@ -74,15 +74,15 @@ RSpec.describe RecipesController, type: :controller do
 
       # Post the create action with recipe parameters
       post :create,
-      params: {
-        recipe: {
-          name: 'New Recipe',
-          description: 'A new recipe',
-          preparation_time: '30',
-          cooking_time: '45',
-          public: true
-        }
-      } 
+           params: {
+             recipe: {
+               name: 'New Recipe',
+               description: 'A new recipe',
+               preparation_time: '30',
+               cooking_time: '45',
+               public: true
+             }
+           }
 
       # Check for successful redirect and a flash message
       expect(response).to redirect_to(recipes_path)
