@@ -17,13 +17,12 @@
 
 $gray-color: #eef0f2;
 $black-color: #1c1c1c;
-$blue-highlight: #2ec4b6;
+$blue-highlight: #2ec4b6;z
 
 body {
-  background-color: $gray-color;
 
   .card {
-    border-radius: 0;
+    border-radius: 50px;
 
     .card-body {
       display: flex;
@@ -66,10 +65,4 @@ body {
       margin: 0 2.5px;
     }
   }
-}
-
-.recipeImg {
-  width: auto;
-  height: 200px;
-  object-fit: cover;
 }

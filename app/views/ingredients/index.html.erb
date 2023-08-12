@@ -17,7 +17,7 @@
         <td><%= ingredient.name %></td>
         <td><%= ingredient.measurement_unit %></td>
         <td><%= ingredient.price %></td>
-        <td><%= ingredient.quantity %></td>
+        <td><%= ingredient.ingredient_ownerships.find_by(user: current_user)&.user_quantity || 0 %></td>
         <td>
           <%= button_to "Delete", ingredient_path(ingredient.id), method: :delete, class: "btn btn-danger" %>
         </td>
