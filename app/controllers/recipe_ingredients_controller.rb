@@ -34,12 +34,12 @@ class RecipeIngredientsController < ApplicationController
   def handle_existing_ingredient(ingredient, recipe_quantity)
     ingredient_ownership = IngredientOwnership.find_by(ingredient_id: ingredient.id, user_id: current_user.id)
     recipe = Recipe.find(@recipe.id)
-    
+
     if ingredient_ownership && ingredient_ownership.user_id == current_user.id
       # Update recipe id and quantity in ingredient ownership
       ingredient_ownership.recipe_id = recipe.id
       ingredient_ownership.recipe_quantity = recipe_quantity
-      
+
       if ingredient_ownership.save
         puts 'Successfully updated ingredient ownership'
       else
@@ -49,11 +49,10 @@ class RecipeIngredientsController < ApplicationController
       # Create new ingredient ownership
       add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
     end
-    
+
     flash[:success] = "#{ingredient.name} added to recipe as a new ingredient!"
     redirect_to_recipe(recipe)
   end
-  
 
   def add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
     IngredientOwnership.create(

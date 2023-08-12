@@ -13,7 +13,7 @@ class IngredientsController < ApplicationController
 
   def destroy
     @ingredient_ownership = IngredientOwnership.find_by(user_id: current_user.id)
-  
+
     if @ingredient_ownership
       @ingredient_ownership.user_id = nil
       @ingredient_ownership.user_quantity = nil
@@ -26,10 +26,9 @@ class IngredientsController < ApplicationController
       flash[:error] = 'Ingredient ownership not found'
       puts 'Ingredient ownership not found'
     end
-  
+
     redirect_to ingredients_path
-  end  
-  
+  end
 
   def create
     ingredient_name = params[:ingredient][:name]
@@ -52,7 +51,7 @@ class IngredientsController < ApplicationController
     IngredientOwnership.create(
       user: current_user,
       ingredient: ingredient,
-      user_quantity: quantity,
+      user_quantity: quantity
     )
 
     flash[:success] = "#{ingredient.name} added to your ingredients!"
@@ -70,5 +69,4 @@ class IngredientsController < ApplicationController
   def set_ingredient_ownership
     @ingredient_ownership = current_user.ingredient_ownerships.find_by(ingredient_id: params[:id])
   end
-  
 end

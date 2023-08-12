@@ -17,7 +17,7 @@
 
 $gray-color: #eef0f2;
 $black-color: #1c1c1c;
-$blue-highlight: #2ec4b6;
+$blue-highlight: #2ec4b6;z
 
 body {
   background-color: $gray-color;
@@ -66,6 +66,10 @@ body {
       margin: 0 2.5px;
     }
   }
+}
+
+.navbar {
+  background-color: black;
 }
 
 .recipeImg {
