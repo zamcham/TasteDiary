@@ -1,26 +1,36 @@
-
 <%= image_tag @recipe.photo, class: 'img-fluid', alt: 'recipe cover image' %>
-<!-- Displays a 'delete recipe' button if the owner of the recipe is logged in -->
+
 <% if @user == current_user %>
   <%= button_to "Delete", recipe_path(@recipe), method: :delete, class: "btn btn-danger" %>
-  <%= link_to "Add Ingredient", new_recipe_ingredient_path(recipe_id: @recipe.id), class: "btn btn-primary" %>
-  <!-- A button to change the recipe from public to private and vice versa -->
+  <%= link_to "Add Ingredient", new_recipe_recipe_ingredient_path(@recipe), class: "btn btn-primary" %>
+  
   <%= form_with(model: @recipe, url: toggle_visibility_recipe_path(@recipe), local: true, method: :post, class: 'toggle-visibility-form') do |f| %>
-  <% if @recipe.public? %>
-    <%= f.submit "Change to Private", class: "btn btn-primary" %>
-  <% else %>
-    <%= f.submit "Change to Public", class: "btn btn-primary" %>
+    <% if @recipe.public? %>
+      <%= f.submit "Change to Private", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "Change to Public", class: "btn btn-primary" %>
+    <% end %>
   <% end %>
 <% end %>
-<% end %>
+
 <h1><%= @recipe.name %></h1>
 <p><%= @recipe.description %></p>
 <p>Created By: <%= @user.name %></p>
 
-<!-- Display ingredients related to the recipe -->
 <h2>Ingredients</h2>
 <ul>
-  <% @recipe.ingredients.each do |ingredient| %>
-    <li><%= ingredient.name %> (Measurement: <%= ingredient.measurement_unit %>, Quantity: <%= ingredient.quantity %>)</li>
+  <% if @recipe.ingredient_ownerships.any? %>
+    <% @recipe.ingredient_ownerships.each do |ownership| %>
+      <% if ownership.recipe_id == @recipe.id %>
+        <li>
+          <%= ownership.ingredient.name %> 
+          (Measurement: <%= ownership.ingredient.measurement_unit %>, 
+          Quantity Owned: <%= ownership.user_quantity %>, 
+          Quantity for Recipe: <%= ownership.recipe_quantity %>)
+        </li>
+      <% end %>
+    <% end %>
+  <% else %>
+    <li>No ingredients added yet.</li>
   <% end %>
 </ul>

@@ -3,8 +3,9 @@ user_one = User.create!(name: 'Naan', email: '123email@gmail.com', password: '12
 user_two = User.create!(name: 'Cristian', email: '456email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
 
 # Create ingredients owned by users
-ingredient_one = Ingredient.create!(name: 'pepper', measurement_unit: 'g', price: 1, quantity: 1)
-ingredient_two = Ingredient.create!(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
+ingredient_one = Ingredient.create!(name: 'Pepper', measurement_unit: 'g', price: 0.99)
+ingredient_two = Ingredient.create!(name: 'Salt', measurement_unit: 'lb', price: 0.50)
+ingredient_three = Ingredient.create!(name: 'Chicken Breast', measurement_unit: 'lb', price: 1)
 
 # Create recipes with ingredients
 recipe_one = user_one.recipes.create!(
@@ -15,7 +16,6 @@ recipe_one = user_one.recipes.create!(
   public: true,
   photo: 'defaultRecipe.jpg'
 )
-recipe_one.ingredients << ingredient_one
   
 recipe_two = user_two.recipes.create!(
   name: 'Orange chicken',
@@ -25,22 +25,9 @@ recipe_two = user_two.recipes.create!(
   public: true,
   photo: 'defaultRecipe.jpg'
 )
-recipe_two.ingredients << ingredient_two
 
-# Not owned by any user
-ingredient_five = Ingredient.create!(name: 'Chicken Breast', measurement_unit: 'Lb', price: 2, quantity: 2)
-recipe_two.ingredients << ingredient_five
+# Ingredient ownerships
+ownership1 = IngredientOwnership.create(user: user_one, ingredient: ingredient_one, user_quantity: 50)
+ownership2 = IngredientOwnership.create(user: user_two, ingredient: ingredient_two, user_quantity: 5)
+ownership3 = IngredientOwnership.create(user: user_two, recipe: recipe_one ,ingredient: ingredient_three, user_quantity: 2, recipe_quantity: 1)
 
-# Create additional ingredients and recipes
-ingredient_three = Ingredient.create!(name: 'corn', measurement_unit: 'g', price: 2, quantity: 2)
-ingredient_four = Ingredient.create!(name: 'apple', measurement_unit: 'pieces', price: 0.5, quantity: 3)
-
-recipe_three = user_one.recipes.create!(
-  name: 'Garlic Shrimp',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Laoreet suspendisse interdum consectetur libero id faucibus nisl. Pretium quam vulputate dignissim suspendisse in est ante in.',
-  preparation_time: 25,
-  cooking_time: 10,
-  public: false,
-  photo: 'shrimpRecipe.jpg'
-)
-recipe_three.ingredients << ingredient_four

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     member do
       post 'toggle_visibility'
     end
+
+    resources :recipe_ingredients, only: [:new, :create] # Nested for adding ingredients from recipe details
   end
 
   resources :ingredients # Not nested
