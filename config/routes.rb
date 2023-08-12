@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 
   resources :recipes, only: [:index, :show, :new, :create, :destroy] do
-    resources :ingredients, only: [:new, :create, :destroy] # Nested within recipes
+    resources :ingredients, only: [:new, :create, :edit, :update, :destroy] # Nested within recipes
     member do
       post 'toggle_visibility'
     end
