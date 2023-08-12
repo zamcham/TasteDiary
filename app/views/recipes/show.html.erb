@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container hp">
 
   <div class="row">
     <div class="col-md-4">
@@ -41,9 +41,8 @@
           <li class="list-group-item">
             <%= ownership.ingredient.name %>
             <span class="text-muted">
-              (<%= ownership.ingredient.measurement_unit %>,
-              <%= ownership.user_quantity %> owned,
-              <%= ownership.recipe_quantity %> needed)
+              (<%= ownership.recipe_quantity %>,
+              <%= ownership.ingredient.measurement_unit %> needed)
             </span>
           </li>
         <% end %>

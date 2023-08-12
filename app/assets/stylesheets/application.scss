@@ -20,8 +20,22 @@ $black-color: #1c1c1c;
 $blue-highlight: #2ec4b6;
 
 body {
+
+  .navbar {
+    border-bottom: 1px solid $black-color;
+  }
+
+  .logoMenu {
+    width: 150px;
+    height: auto;
+  }
+
+  .hp {
+    margin-top: 5vh;
+  }
+
   .card {
-    border-radius: 50px;
+    border-radius: 0px;
 
     .card-body {
       display: flex;
