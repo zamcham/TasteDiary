@@ -5,13 +5,16 @@
     <tr>
       <th>Ingredient</th>
       <th>Missing Quantity</th>
+      <th> Total Price</th>
     </tr>
   </thead>
   <tbody>
     <% @missing_ingredients.each do |missing| %>
+      <% total_price = missing[:ingredient].price * missing[:missing_quantity] %>
       <tr>
         <td><%= missing[:ingredient].name %></td>
         <td><%= missing[:missing_quantity] %></td>
+        <td><%= total_price %></td>
       </tr>
     <% end %>
   </tbody>
