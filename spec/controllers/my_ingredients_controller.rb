@@ -5,7 +5,7 @@ RSpec.describe MyIngredientsController, type: :controller do
   # Include Devise test helpers
   include Devise::Test::ControllerHelpers
 
-  describe "POST #create" do
+  describe 'POST #create' do
     it "adds a new ingredient to the user's list" do
       # Create a user for testing
       user = User.create(name: 'John', email: 'john@example.com', password: 'password')
@@ -26,7 +26,7 @@ RSpec.describe MyIngredientsController, type: :controller do
 
       # Check for successful redirect and a flash message
       expect(response).to redirect_to(my_ingredients_path)
-      expect(flash[:success]).to eq("New Ingredient added to your ingredients!")
+      expect(flash[:success]).to eq('New Ingredient added to your ingredients!')
 
       # Check if the ingredient ownership was created
       new_ingredient = Ingredient.find_by(name: 'New Ingredient')
