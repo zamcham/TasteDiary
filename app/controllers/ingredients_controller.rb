@@ -12,22 +12,22 @@ class IngredientsController < ApplicationController
 
   def destroy
     @ingredient = current_user.user_ingredients.find_by(id: params[:id])
-  
-    if @ingredient && @ingredient.destroy
+
+    if @ingredient&.destroy
       flash[:notice] = 'Ingredient successfully deleted from your list!'
     else
       flash[:error] = 'Error deleting ingredient'
     end
-  
+
     redirect_to ingredients_path
   end
 
   def create
     puts "Params: #{params.inspect}" # Debugging line
-    
+
     ingredient_name = params[:ingredient][:name]
-    ingredient = Ingredient.find_by(name: ingredient_name)
-    
+    Ingredient.find_by(name: ingredient_name)
+
     if params[:ingredient][:from_recipe].present?
       # Rest of your code
     elsif params[:ingredient][:from_user].present?
@@ -37,10 +37,9 @@ class IngredientsController < ApplicationController
       redirect_to ingredients_path
     end
   end
-  
-  
+
   private
-  
+
   def handle_recipe_ingredient(ingredient, ingredient_name)
     if ingredient && user_has_ingredient?(ingredient)
       handle_existing_ingredient(ingredient)
@@ -48,8 +47,8 @@ class IngredientsController < ApplicationController
       handle_new_ingredient(ingredient_name)
     end
   end
-  
-  def handle_user_ingredient(ingredient, ingredient_name)
+
+  def handle_user_ingredient(_ingredient, ingredient_name)
     handle_new_user_ingredient(ingredient_name)
   end
 
@@ -64,7 +63,7 @@ class IngredientsController < ApplicationController
     flash[:success] = "#{ingredient_name} added to your ingredients!"
     redirect_to ingredients_path
   end
-  
+
   # Other methods...
 
   def ingredient_params

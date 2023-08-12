@@ -1,0 +1,2 @@
+module MyIngredientsHelper
+end

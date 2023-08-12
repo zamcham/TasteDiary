@@ -9,29 +9,41 @@ class RecipeIngredientsController < ApplicationController
     ingredient_name = params[:ingredient][:name]
     measurement_unit = params[:ingredient][:measurement_unit]
     price = params[:ingredient][:price]
-    quantity = params[:ingredient][:quantity]
+    quantity = params[:ingredient][:recipe_quantity]
     ingredient = Ingredient.find_or_create_by(name: ingredient_name, measurement_unit: measurement_unit, price: price)
-  
-    if params[:ingredient][:recipe_quantity].present?
-      handle_new_ingredient(ingredient, params[:ingredient][:recipe_quantity])
+
+    # Checks if ingredient exists in ingredient ownership table and has a user id
+    if IngredientOwnership.find_by(ingredient_id: ingredient.id, user_id: current_user.id)
+      # handle existing ingredient
+      handle_existing_ingredient(ingredient, quantity)
     else
-      handle_user_ingredient(ingredient)
+      # handle new ingredient
+      handle_new_ingredient(ingredient, quantity)
     end
   end
-  
+
   private
-  
+
   def handle_new_ingredient(ingredient, recipe_quantity)
-    if params[:ingredient][:recipe_id].present?
-      recipe = Recipe.find(params[:ingredient][:recipe_id])
-      add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
-      flash[:success] = "#{ingredient.name} added to recipe as a new ingredient!"
-      redirect_to_recipe(recipe)
+    recipe = Recipe.find(@recipe.id)
+    add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
+    flash[:success] = "#{ingredient.name} added to recipe as a new ingredient!"
+    redirect_to_recipe(recipe)
+  end
+
+  def handle_existing_ingredient(ingredient, recipe_quantity)
+    ingredient_ownership = IngredientOwnership.find_by(ingredient_id: ingredient.id, user_id: current_user.id)
+    recipe = Recipe.find(@recipe.id)
+    if ingredient_ownership.user_id == current_user.id
+      # add recipe id and quantity to ingredient ownership
+      ingredient_ownership.recipe_id = recipe.id
+      ingredient_ownership.recipe_quantity = recipe_quantity
     else
-      add_ingredient_to_user(ingredient)
+      # create new ingredient ownership
+      add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
     end
   end
-  
+
   def add_ingredient_to_recipe(ingredient, recipe, recipe_quantity)
     IngredientOwnership.create(
       ingredient: ingredient,
@@ -39,18 +51,12 @@ class RecipeIngredientsController < ApplicationController
       recipe_quantity: recipe_quantity
     )
   end
-  
+
   def redirect_to_recipe(recipe)
     redirect_to user_recipe_path(user_id: recipe.user_id, id: recipe.id)
   end
-  
-  def user_has_ingredient?(ingredient)
-    current_user.user_ingredients.exists?(ingredient: ingredient)
-  end
-  
 
   def set_recipe
     @recipe = Recipe.find(params[:recipe_id])
   end
 end
-  
