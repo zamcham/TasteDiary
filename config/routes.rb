@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   end
 
   resources :ingredients # Not nested
+
+  resources :my_ingredients, only: [:index, :new, :create] # Routes for MyIngredientsController
 end

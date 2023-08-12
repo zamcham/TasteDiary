@@ -27,9 +27,5 @@
     </div>
   </div>
 
-  <% if @recipe.present? %>
-    <%= form.hidden_field :recipe_id, value: @recipe.id %>
-  <% end %>
-
   <%= form.submit "Create Ingredient", class: "btn btn-primary" %>
 <% end %>

@@ -23,48 +23,32 @@ class IngredientsController < ApplicationController
   end
 
   def create
-    puts "Params: #{params.inspect}" # Debugging line
-
     ingredient_name = params[:ingredient][:name]
-    Ingredient.find_by(name: ingredient_name)
+    measurement_unit = params[:ingredient][:measurement_unit]
+    price = params[:ingredient][:price]
+    quantity = params[:ingredient][:quantity]
 
-    if params[:ingredient][:from_recipe].present?
-      # Rest of your code
-    elsif params[:ingredient][:from_user].present?
-      # Rest of your code
-    else
-      flash[:error] = 'Invalid ingredient creation context'
-      redirect_to ingredients_path
-    end
+    ingredient = Ingredient.find_or_create_by(
+      name: ingredient_name,
+      measurement_unit: measurement_unit,
+      price: price
+    )
+
+    handle_user_ingredient(ingredient, quantity)
   end
 
   private
 
-  def handle_recipe_ingredient(ingredient, ingredient_name)
-    if ingredient && user_has_ingredient?(ingredient)
-      handle_existing_ingredient(ingredient)
-    else
-      handle_new_ingredient(ingredient_name)
-    end
-  end
-
-  def handle_user_ingredient(_ingredient, ingredient_name)
-    handle_new_user_ingredient(ingredient_name)
-  end
-
-  def handle_new_user_ingredient(ingredient_name)
-    @ingredient = current_user.ingredients.create(
-      name: ingredient_name,
-      measurement_unit: params[:ingredient][:measurement_unit],
-      price: params[:ingredient][:price],
-      quantity: params[:ingredient][:quantity]
+  def handle_user_ingredient(ingredient, quantity)
+    IngredientOwnership.create(
+      user: current_user,
+      ingredient: ingredient,
+      user_quantity: quantity,
     )
 
-    flash[:success] = "#{ingredient_name} added to your ingredients!"
+    flash[:success] = "#{ingredient.name} added to your ingredients!"
     redirect_to ingredients_path
   end
-
-  # Other methods...
 
   def ingredient_params
     params.require(:ingredient).permit(:name, :measurement_unit, :price, :quantity, :user_id)
