@@ -1,6 +1,7 @@
 class IngredientsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_recipe, only: %i[new create]
+  before_action :set_ingredient_ownership, only: %i[destroy]
 
   def index
     @ingredients = current_user.ingredients
@@ -11,16 +12,24 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
-    @ingredient = current_user.user_ingredients.find_by(id: params[:id])
-
-    if @ingredient&.destroy
-      flash[:notice] = 'Ingredient successfully deleted from your list!'
+    @ingredient_ownership = IngredientOwnership.find_by(user_id: current_user.id)
+  
+    if @ingredient_ownership
+      @ingredient_ownership.user_id = nil
+      @ingredient_ownership.user_quantity = nil
+      if @ingredient_ownership.save
+        flash[:notice] = 'Ingredient successfully removed from your list!'
+      else
+        flash[:error] = 'Error removing ingredient'
+      end
     else
-      flash[:error] = 'Error deleting ingredient'
+      flash[:error] = 'Ingredient ownership not found'
+      puts 'Ingredient ownership not found'
     end
-
+  
     redirect_to ingredients_path
-  end
+  end  
+  
 
   def create
     ingredient_name = params[:ingredient][:name]
@@ -57,4 +66,9 @@ class IngredientsController < ApplicationController
   def set_recipe
     @recipe = Recipe.find_by(id: params[:recipe_id])
   end
+
+  def set_ingredient_ownership
+    @ingredient_ownership = current_user.ingredient_ownerships.find_by(ingredient_id: params[:id])
+  end
+  
 end
