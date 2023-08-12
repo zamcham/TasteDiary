@@ -19,14 +19,13 @@ class ShoppingListController < ApplicationController
         recipe_quantity = ownership.recipe_quantity
         user_ingredient = IngredientOwnership.where(user_id: current_user.id, ingredient_id: ingredient.id).first
 
-        if user_ingredient.nil? || user_quantity < recipe_quantity
+        next unless user_ingredient.nil? || user_quantity < recipe_quantity
 
-          missing_quantity = recipe_quantity - (user_quantity || 0)
-          missing_ingredients << {
-            ingredient: ingredient,
-            missing_quantity: missing_quantity
-          }
-        end
+        missing_quantity = recipe_quantity - (user_quantity || 0)
+        missing_ingredients << {
+          ingredient: ingredient,
+          missing_quantity: missing_quantity
+        }
       end
     end
 
