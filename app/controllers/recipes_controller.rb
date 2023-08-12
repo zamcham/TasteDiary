@@ -16,7 +16,6 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.new(recipe_params)
-
     @recipe.preparation_time = recipe_params[:preparation_time].to_i
     @recipe.cooking_time = recipe_params[:cooking_time].to_i
 
@@ -40,6 +39,12 @@ class RecipesController < ApplicationController
     else
       render 'show'
     end
+  end
+
+  def toggle_visibility
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(public: !@recipe.public)
+    redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id)
   end
 
   private

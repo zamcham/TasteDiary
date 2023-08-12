@@ -1,16 +1,33 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-userOne = User.create(name: 'Naan', email: '123email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
-ingredientOne = userOne.ingredients.create(name: 'pepper', measurement_unit: 'g', price: 1, quantity: 1)
-recipeOne = userOne.recipes.create(name: 'Stuffed Peppers', description: 'peppers are yummy!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
-mealOne = recipeOne.meals.create(quantity: 1)
+# Create users
+user_one = User.create!(name: 'Naan', email: '123email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
+user_two = User.create!(name: 'Cristian', email: '456email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
 
-userTwo = User.create(name: 'Cristian', email: '456email@gmail.com', password: '123456', photo: 'defaultUser.jpg')
-ingredientTwo = userTwo.ingredients.create(name: 'salt', measurement_unit: 'g', price: 1, quantity: 1)
-recipeTwo = userTwo.recipes.create(name: 'Popcorn with Butter', description: 'Salty popcorns with butter!', preparation_time: 35, cooking_time: 15, public: true, photo: 'defaultRecipe.jpg')
-mealTwo = recipeTwo.meals.create(quantity: 1)
+# Create ingredients owned by users
+ingredient_one = Ingredient.create!(name: 'Pepper', measurement_unit: 'g', price: 0.99)
+ingredient_two = Ingredient.create!(name: 'Salt', measurement_unit: 'lb', price: 0.50)
+ingredient_three = Ingredient.create!(name: 'Chicken Breast', measurement_unit: 'lb', price: 1)
+
+# Create recipes with ingredients
+recipe_one = user_one.recipes.create!(
+  name: 'Pulled BBQ chicken',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+  preparation_time: 35,
+  cooking_time: 15,
+  public: true,
+  photo: 'defaultRecipe.jpg'
+)
+  
+recipe_two = user_two.recipes.create!(
+  name: 'Orange chicken',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam nulla facilisi cras fermentum. Nunc sed id semper risus in.',
+  preparation_time: 35,
+  cooking_time: 15,
+  public: true,
+  photo: 'defaultRecipe.jpg'
+)
+
+# Ingredient ownerships
+ownership1 = IngredientOwnership.create(user: user_one, ingredient: ingredient_one, user_quantity: 50)
+ownership2 = IngredientOwnership.create(user: user_two, ingredient: ingredient_two, user_quantity: 5)
+ownership3 = IngredientOwnership.create(user: user_two, recipe: recipe_one ,ingredient: ingredient_three, user_quantity: 2, recipe_quantity: 1)
+

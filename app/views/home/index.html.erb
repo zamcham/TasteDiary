@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container hp">
   <% if @public_recipes.any? { |recipe| recipe.user == current_user } %>
     <h1>Hey <%= current_user.name %> Discover The Newest Recipes</h1>
   <% else %>
-    <h1>Discover The Newest Recipes</h1>
+    <h1 class="text-center">Discover The Newest Recipes</h1>
   <% end %>
 </div>
 <div class="container">
