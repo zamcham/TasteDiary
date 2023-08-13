@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'public_recipes/index'
   get 'shopping_list/index'
   devise_for :users
   root 'home#index'
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
 
   resources :recipes, only: [:index, :show, :new, :create, :destroy] do
-    resources :ingredients, only: [:new, :create, :destroy] # Nested within recipes
+    resources :ingredients, only: [:new, :create, :edit, :update, :destroy] # Nested within recipes
     member do
       post 'toggle_visibility'
     end
@@ -18,4 +19,5 @@ Rails.application.routes.draw do
   resources :ingredients # Not nested
 
   resources :my_ingredients, only: [:index, :new, :create] # Routes for MyIngredientsController
+  get '/public_recipes', to: 'public_recipes#index', as: 'public_recipes'
 end

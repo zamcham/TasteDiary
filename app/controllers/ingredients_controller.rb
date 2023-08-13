@@ -45,6 +45,21 @@ class IngredientsController < ApplicationController
     handle_user_ingredient(ingredient, quantity)
   end
 
+  def edit
+    @ingredient = Ingredient.find(params[:id])
+  end
+
+  def update
+    @ingredient = Ingredient.find(params[:id])
+    if @ingredient.update(ingredient_params)
+      flash[:success] = 'Ingredient updated successfully!'
+      redirect_to recipes_path
+    else
+      flash[:error] = 'Error updating ingredient'
+      render :edit
+    end
+  end
+
   private
 
   def handle_user_ingredient(ingredient, quantity)
