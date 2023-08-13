@@ -1,0 +1,33 @@
+<div class="container hp">
+  <% if @public_recipes.any? { |recipe| recipe.user == current_user } %>
+    <h1>Hey <%= current_user.name %> Discover The Newest Recipes</h1>
+  <% else %>
+    <h1 class="text-center">Discover The Newest Recipes</h1>
+  <% end %>
+</div>
+<div class="container">
+  <div class="row">
+    <% @public_recipes.each_with_index do |recipe, index| %>
+      <div class="col-md-3">
+        <div class="card" style="width: 18rem;">
+          <%= image_tag recipe.photo, class: 'card-img-top', alt: 'recipe cover image' %>
+          <div class="card-body">
+            <h5 class="card-title"><%= recipe.name %></h5>
+            <p class='cardSep'> • • • • • • • • </p>
+            <div class='createdBy'>
+                <%= image_tag recipe.user.photo, class: 'createdByImg', alt: 'recipe cover image' %>
+                <p><%= recipe.user.name %></p>
+                <p>•</p>
+                <p><%= recipe.created_at.strftime("%B %d, %Y") %></p>
+            </div>
+            <%= link_to 'See Recipe', user_recipe_path(user_id: recipe.user_id, id: recipe.id), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+      <% if (index + 1) % 4 == 0 %>
+        </div>
+        <div class="row">
+      <% end %>
+    <% end %>
+  </div>
+</div>

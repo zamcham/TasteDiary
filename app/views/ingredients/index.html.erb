@@ -1,0 +1,29 @@
+<h1>Ingredients</h1>
+
+<table class="table table-bordered table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Measurement Unit</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.name %></td>
+        <td><%= ingredient.measurement_unit %></td>
+        <td><%= ingredient.price %></td>
+        <td><%= ingredient.ingredient_ownerships.find_by(user: current_user)&.user_quantity || 0 %></td>
+        <td>
+          <%= button_to "Delete", ingredient_path(ingredient.id), method: :delete, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New Ingredient", new_ingredient_path, class: "btn btn-primary" %>
