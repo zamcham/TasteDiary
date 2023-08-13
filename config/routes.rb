@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'public_recipes/index'
   get 'shopping_list/index'
   devise_for :users
   root 'home#index'
@@ -18,4 +19,5 @@ Rails.application.routes.draw do
   resources :ingredients # Not nested
 
   resources :my_ingredients, only: [:index, :new, :create] # Routes for MyIngredientsController
+  get '/public_recipes', to: 'public_recipes#index', as: 'public_recipes'
 end
